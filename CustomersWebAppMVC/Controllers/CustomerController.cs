@@ -72,22 +72,17 @@ namespace CustomersWebAppMVC.Controllers
         // GET: CustomerController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(customers.SingleOrDefault(x => x.Id == id));
         }
 
         // POST: CustomerController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, CustomerModel customer)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var result = customers.SingleOrDefault(x => x.Id == id);
+            customers.Remove(result);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
