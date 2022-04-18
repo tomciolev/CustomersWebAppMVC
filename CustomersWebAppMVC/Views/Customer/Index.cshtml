@@ -11,7 +11,7 @@
 </p>
 @using (Html.BeginForm("Index","Customer", FormMethod.Get))
 {
-    @Html.TextBox("searchString")<input type="submit" value="Search" />
+    <span><strong>Name:   </strong></span> @Html.TextBox("searchString")<input type="submit" value="Search" />
 }
 <table class="table">
     <thead>

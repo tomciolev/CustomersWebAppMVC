@@ -44,6 +44,7 @@ namespace CustomersWebAppMVC.Controllers
         public ActionResult Create(CustomerModel customerModel)
         {
             customerModel.Id = customers.Count + 1;
+            customerModel.CreationDate = DateTime.Now;
             customers.Add(customerModel);
             return RedirectToAction(nameof(Index));
         }
