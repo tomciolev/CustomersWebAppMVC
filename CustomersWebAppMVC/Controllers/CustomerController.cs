@@ -40,28 +40,33 @@ namespace CustomersWebAppMVC.Controllers
             customerModel.Id = customers.Count + 1;
             customers.Add(customerModel);
             return RedirectToAction(nameof(Index));
-
         }
 
         // GET: CustomerController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(customers.SingleOrDefault(x => x.Id == id));
         }
 
         // POST: CustomerController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, CustomerModel customer)
         {
-            try
+            var result = customers.SingleOrDefault(x => x.Id == id);
+            if(result != null)
             {
-                return RedirectToAction(nameof(Index));
+                result.VAT = customer.VAT;
+                result.Name = customer.Name;
+                result.Street = customer.Street;
+                result.StreetNumber = customer.StreetNumber;
+                result.PhoneNumber = customer.PhoneNumber;
+                result.City = customer.City;
+                result.PostalCode = customer.PostalCode;
             }
-            catch
-            {
-                return View();
-            }
+            
+            return RedirectToAction(nameof(Index));
+                      
         }
 
         // GET: CustomerController/Delete/5
