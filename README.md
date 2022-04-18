@@ -8,4 +8,4 @@ It allows us to create new customer, delete customer, edit information about cus
 
 How to run app:
 
-Clone or download the repository and run the project. Everything should work. If there are any problems or questions please contact me.
+Clone or download the repository and run the project. Everything should work. In case of any problems or questions, please contact me.
