@@ -5,29 +5,51 @@ namespace CustomersWebAppMVC.Repositories
 {
     public class CustomerRepository : ICustomerRepository
     {
+        private readonly CustomerContext _customerContext;
+        public CustomerRepository(CustomerContext customerContext)
+        {
+            _customerContext = customerContext;
+        }
         public void Add(CustomerModel customer)
         {
-            
+            _customerContext.Customers.Add(customer);
+            _customerContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            throw new System.NotImplementedException();
+            var result = _customerContext.Customers.SingleOrDefault(x => x.Id == id);
+            if (result != null)
+            {
+                _customerContext.Customers.Remove(result);
+                _customerContext.SaveChanges();
+            } 
         }
 
         public IQueryable<CustomerModel> GetAll()
         {
-            throw new System.NotImplementedException();
+            return _customerContext.Customers;
         }
 
         public CustomerModel GetCustomer(int id)
         {
-            throw new System.NotImplementedException();
+            return _customerContext.Customers.SingleOrDefault(x => x.Id == id);
         }
 
         public void Update(int id, CustomerModel customer)
         {
-            throw new System.NotImplementedException();
+            var result = _customerContext.Customers.SingleOrDefault(x => x.Id == id);
+            if (result != null)
+            {
+                result.VAT = customer.VAT;
+                result.Name = customer.Name;
+                result.Street = customer.Street;
+                result.StreetNumber = customer.StreetNumber;
+                result.PhoneNumber = customer.PhoneNumber;
+                result.City = customer.City;
+                result.PostalCode = customer.PostalCode;
+                _customerContext.SaveChanges();
+            }
         }
     }
 }
