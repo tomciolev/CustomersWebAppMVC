@@ -1,4 +1,5 @@
 ﻿using CustomersWebAppMVC.Models;
+using System;
 using System.Linq;
 
 namespace CustomersWebAppMVC.Repositories
@@ -12,6 +13,8 @@ namespace CustomersWebAppMVC.Repositories
         }
         public void Add(CustomerModel customer)
         {
+            customer.Id = _customerContext.Customers.Count() + 1;
+            customer.CreationDate = DateTime.Now;
             _customerContext.Customers.Add(customer);
             _customerContext.SaveChanges();
         }

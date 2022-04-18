@@ -1,4 +1,5 @@
 using CustomersWebAppMVC.Models;
+using CustomersWebAppMVC.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,7 +29,7 @@ namespace CustomersWebAppMVC
             services.AddControllersWithViews();
             services.AddDbContext<CustomerContext>(options =>
             options.UseSqlite(@"Data Source=CustomersDB.db"));
-            //services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
