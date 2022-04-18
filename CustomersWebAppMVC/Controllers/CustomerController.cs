@@ -29,22 +29,18 @@ namespace CustomersWebAppMVC.Controllers
         // GET: CustomerController/Create
         public ActionResult Create()
         {
-            return View();
+            return View(new CustomerModel());
         }
 
         // POST: CustomerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(CustomerModel customerModel)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            customerModel.Id = customers.Count + 1;
+            customers.Add(customerModel);
+            return RedirectToAction(nameof(Index));
+
         }
 
         // GET: CustomerController/Edit/5
