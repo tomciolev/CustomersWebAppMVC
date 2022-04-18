@@ -1,6 +1,7 @@
 ﻿using CustomersWebAppMVC.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,25 +15,30 @@ namespace CustomersWebAppMVC.Controllers
             new CustomerModel(){Id = 1, Name = "Tomek", VAT="321312", PhoneNumber="123123", City="Krakow"},
             new CustomerModel(){Id = 2, Name = "Kuba", VAT="321312", PhoneNumber="123123", City="Krakow"}
         };
-        // GET: CustomerController
-        public ActionResult Index()
+        // GET: Customer
+        public ActionResult Index(string searchString)
         {
-            return View(customers);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                return View(customers.Where(s => s.Name.Contains(searchString)).ToList());
+            }
+            else
+                return View(customers);
         }
 
-        // GET: CustomerController/Details/5
+        // GET: Customer/Details/5
         public ActionResult Details(int id)
         {
             return View(customers.SingleOrDefault(x => x.Id == id));
         }
 
-        // GET: CustomerController/Create
+        // GET: Customer/Create
         public ActionResult Create()
         {
             return View(new CustomerModel());
         }
 
-        // POST: CustomerController/Create
+        // POST: Customer/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CustomerModel customerModel)
@@ -42,13 +48,13 @@ namespace CustomersWebAppMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: CustomerController/Edit/5
+        // GET: Customer/Edit/5
         public ActionResult Edit(int id)
         {
             return View(customers.SingleOrDefault(x => x.Id == id));
         }
 
-        // POST: CustomerController/Edit/5
+        // POST: Customer/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, CustomerModel customer)
@@ -69,13 +75,13 @@ namespace CustomersWebAppMVC.Controllers
                       
         }
 
-        // GET: CustomerController/Delete/5
+        // GET: Customer/Delete/5
         public ActionResult Delete(int id)
         {
             return View(customers.SingleOrDefault(x => x.Id == id));
         }
 
-        // POST: CustomerController/Delete/5
+        // POST: Customer/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, CustomerModel customer)
